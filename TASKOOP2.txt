@@ -3,12 +3,12 @@
 START
     BEGIN
 CLASS Owner
-    PRIVATE
-        ownerID : Number
-        name : String
-        phone : Number
-        address : String
-        pets : List<Pet>
+  ATTRIBUTES
+       PRIVATE ownerID : Number
+       PRIVATE name : String
+       PRIVATE phone : Number
+       PRIVATE address : String
+       PRIVATE pets : List<Pet>
 
     CONSTRUCTOR(ownerID, name, phone, address)
         SET ownerID
@@ -25,10 +25,10 @@ END CLASS
 
 
 CLASS Species
-    PRIVATE
-        speciesID : Number
-        speciesName : String
-        careRequirements : String
+    ATTRIBUTES
+         PRIVATE speciesID : Number
+         PRIVATE speciesName : String
+         PRIVATE careRequirements : String
 
     CONSTRUCTOR(speciesID, speciesName, careRequirements)
         SET speciesID
@@ -39,10 +39,10 @@ END CLASS
 
 
 CLASS MedicalHistory
-    PRIVATE
-        historyID : Number
-        date : Date
-        description : String
+   ATTRIBUTES
+          PRIVATE historyID : Number
+          PRIVATE date : Date
+          PRIVATE  description : String
 
     CONSTRUCTOR(historyID, date, description)
         SET historyID
@@ -53,12 +53,12 @@ END CLASS
 
 
 CLASS Pet
-    PRIVATE
-        petID : Number
-        name : String
-        dateOfBirth : Date
-        species : Species
-        medicalHistory : List<MedicalHistory>
+ ATTRIBUTES
+        PRIVATE petID : Number
+        PRIVATE name : String
+        PRIVATE dateOfBirth : Date
+        PRIVATE species : Species
+        PRIVATE medicalHistory : List<MedicalHistory>
 
     CONSTRUCTOR(petID, name, dateOfBirth, species)
         SET petID
@@ -79,10 +79,10 @@ END CLASS
 
 
 CLASS Vet
-    PRIVATE
-        vetID : Number
-        name : String
-        specialization : String
+     ATTRIBUTES
+          PRIVATE vetID : Number
+          PRIVATE name : String
+          PRIVATE specialization : String
 
     CONSTRUCTOR(vetID, name, specialization)
         SET vetID
@@ -93,10 +93,10 @@ END CLASS
 
 
 CLASS VitalSigns
-    PRIVATE
-        temperature : Number
-        heartRate : Number
-        weight : Number
+    ATTRIBUTES
+        PRIVATE temperature : Number
+        PRIVATE heartRate : Number
+        PRIVATE weight : Number
 
     CONSTRUCTOR(temperature, heartRate, weight)
         SET temperature
@@ -107,10 +107,10 @@ END CLASS
 
 
 CLASS Examination
-    PRIVATE
-        examinationID : Number
-        diagnosis : String
-        vitalSigns : VitalSigns
+     ATTRIBUTES
+       PRIVATE examinationID : Number
+       PRIVATE diagnosis : String
+       PRIVATE vitalSigns : VitalSigns
 
     CONSTRUCTOR(examinationID, diagnosis, vitalSigns)
         SET examinationID
@@ -129,10 +129,10 @@ END CLASS
 
 
 CLASS Treatment
-    PRIVATE
-        treatmentID : Number
-        treatmentName : String
-        cost : Number
+   ATTRIBUTES
+         PRIVATE treatmentID : Number
+         PRIVATE treatmentName : String
+         PRIVATE cost : Number
 
     CONSTRUCTOR(treatmentID, treatmentName, cost)
         SET treatmentID
@@ -147,12 +147,12 @@ END CLASS
 
 
 CLASS Visit
-    PRIVATE
-        visitID : Number
-        visitDate : Date
-        owner : Owner
-        pet : Pet
-        vet : Vet
+   ATTRIBUTES
+       PRIVATE visitID : Number
+       PRIVATE visitDate : Date
+       PRIVATE owner : Owner
+       PRIVATE pet : Pet
+       PRIVATE vet : Vet
         examination : Examination
         treatments : List<Treatment>
 
@@ -184,15 +184,14 @@ END
 
 
 Task 279: Movie Theate
-
 START
      BEGIN
 CLASS Film
-    PRIVATE
-        filmID : Number
-        title : String
-        duration : Number
-        genre : String
+   ATTRIBUTES
+       PRIVATE filmID : Number
+       PRIVATE title : String
+       PRIVATE duration : Number
+       PRIVATE genre : String
 
     CONSTRUCTOR(filmID, title, duration, genre)
         SET filmID
@@ -204,9 +203,9 @@ END CLASS
 
 
 CLASS Screen
-    PRIVATE
-        screenID : Number
-        screenName : String
+   ATTRIBUTES
+       PRIVATE screenID : Number
+       PRIVATE screenName : String
 
     CONSTRUCTOR(screenID, screenName)
         SET screenID
@@ -216,11 +215,11 @@ END CLASS
 
 
 CLASS ScreeningRoom
-    PRIVATE
-        roomID : Number
-        seatingLayout : String
-        capacity : Number
-        screen : Screen
+   ATTRIBUTES
+        PRIVATE roomID : Number
+        PRIVATE seatingLayout : String
+        PRIVATE capacity : Number
+        PRIVATE screen : Screen
 
     CONSTRUCTOR(roomID, seatingLayout, capacity, screen)
         SET roomID
@@ -236,10 +235,10 @@ END CLASS
 
 
 CLASS Customer
-    PRIVATE
-        customerID : Number
-        name : String
-        phone : Number
+    ATTRIBUTES
+        PRIVATE customerID : Number
+        PRIVATE name : String
+        PRIVATE phone : Number
 
     CONSTRUCTOR(customerID, name, phone)
         SET customerID
@@ -250,8 +249,8 @@ END CLASS
 
 
 CLASS Seat
-    PRIVATE
-        seatNumber : String
+    ATTRIBUTES
+       PRIVATE seatNumber : String
 
     CONSTRUCTOR(seatNumber)
         SET seatNumber
@@ -260,11 +259,11 @@ END CLASS
 
 
 CLASS Ticket
-    PRIVATE
-        ticketID : Number
-        customer : Customer
-        showtime : Showtime
-        seat : Seat
+    ATTRIBUTES
+       PRIVATE ticketID : Number
+       PRIVATE customer : Customer
+       PRIVATE showtime : Showtime
+       PRIVATE seat : Seat
 
     CONSTRUCTOR(ticketID, customer, showtime, seat)
         SET ticketID
@@ -276,13 +275,13 @@ END CLASS
 
 
 CLASS Showtime
-    PRIVATE
-        showtimeID : Number
-        startTime : Time
-        endTime : Time
-        film : Film
-        room : ScreeningRoom
-        tickets : List<Ticket>
+    ATTRIBUTES
+        PRIVATE showtimeID : Number
+        PRIVATE startTime : Time
+        PRIVATE endTime : Time
+        PRIVATE film : Film
+        PRIVATE room : ScreeningRoom
+        PRIVATE tickets : List<Ticket>
 
     CONSTRUCTOR(showtimeID, startTime, endTime, film, room)
         SET showtimeID
@@ -327,15 +326,13 @@ END
 
 
 Task 280: Warehouse Inventory
-
-
 START 
      BEGIN
 CLASS Warehouse
-    PRIVATE
-        warehouseID : Number
-        name : String
-        products : List<Product>
+    ATTRIBUTES
+       PRIVATE warehouseID : Number
+       PRIVATE name : String
+       PRIVATE products : List<Product>
 
     CONSTRUCTOR(warehouseID, name)
         SET warehouseID
@@ -358,9 +355,9 @@ END CLASS
 
 
 CLASS Category
-    PRIVATE
-        categoryID : Number
-        categoryName : String
+    ATTRIBUTES
+       PRIVATE categoryID : Number
+       PRIVATE  categoryName : String
 
     CONSTRUCTOR(categoryID, categoryName)
         SET categoryID
@@ -374,13 +371,13 @@ END CLASS
 
 
 CLASS Vendor
-    PRIVATE
-        vendorID : Number
-        vendorName : String
-        phone : Number
-        email : String
-        reliabilityRating : Number
-        products : List<Product>
+    ATTRIBUTES
+       PRIVATE vendorID : Number
+       PRIVATE vendorName : String
+       PRIVATE phone : Number
+       PRIVATE email : String
+       PRIVATE reliabilityRating : Number
+       PRIVATE products : List<Product>
 
     CONSTRUCTOR(vendorID, vendorName, phone, email, reliabilityRating)
         SET vendorID
@@ -406,10 +403,10 @@ END CLASS
 
 
 CLASS StorageBin
-    PRIVATE
-        binID : Number
-        location : String
-        quantity : Number
+    ATTRIBUTES
+       PRIVATE binID : Number
+       PRIVATE location : String
+       PRIVATE quantity : Number
 
     CONSTRUCTOR(binID, location, quantity)
         SET binID
@@ -432,11 +429,11 @@ END CLASS
 
 
 CLASS StockMovement
-    PRIVATE
-        movementID : Number
-        movementType : String
-        quantity : Number
-        date : Date
+    ATTRIBUTES
+       PRIVATE movementID : Number
+       PRIVATE movementType : String
+       PRIVATE quantity : Number
+       PRIVATE date : Date
 
     CONSTRUCTOR(movementID, movementType, quantity, date)
         SET movementID
@@ -454,13 +451,13 @@ END CLASS
 
 
 CLASS Product
-    PRIVATE
-        productID : Number
-        productName : String
-        category : Category
-        vendor : Vendor
-        bins : List<StorageBin>
-        movements : List<StockMovement>
+    ATTRIBUTES
+       PRIVATE productID : Number
+       PRIVATE productName : String
+       PRIVATE category : Category
+       PRIVATE vendor : Vendor
+       PRIVATE bins : List<StorageBin>
+       PRIVATE movements : List<StockMovement>
 
     CONSTRUCTOR(productID, productName, category, vendor)
         SET productID
@@ -504,18 +501,17 @@ END
 
 
 Task 281: School Classroom
-
 START
     BEGIN
 CLASS SchoolClass
-    PRIVATE
-        classID : Number
-        className : String
-        maxSize : Number
-        schedule : String
-        teacher : Teacher
-        subject : Subject
-        students : List<Student>
+    ATTRIBUTES
+       PRIVATE classID : Number
+       PRIVATE className : String
+       PRIVATE maxSize : Number
+       PRIVATE schedule : String
+       PRIVATE teacher : Teacher
+       PRIVATE subject : Subject
+       PRIVATE students : List<Student>
 
     CONSTRUCTOR(classID, className, maxSize, schedule, teacher, subject)
         SET classID
@@ -546,10 +542,10 @@ END CLASS
 
 
 CLASS Teacher
-    PRIVATE
-        teacherID : Number
-        name : String
-        phone : Number
+    ATTRIBUTES
+       PRIVATE teacherID : Number
+       PRIVATE name : String
+       PRIVATE phone : Number
 
     CONSTRUCTOR(teacherID, name, phone)
         SET teacherID
@@ -568,10 +564,10 @@ END CLASS
 
 
 CLASS Subject
-    PRIVATE
-        subjectID : Number
-        subjectName : String
-        syllabus : String
+    ATTRIBUTES
+       PRIVATE subjectID : Number
+       PRIVATE subjectName : String
+       PRIVATE syllabus : String
 
     CONSTRUCTOR(subjectID, subjectName, syllabus)
         SET subjectID
@@ -586,9 +582,9 @@ END CLASS
 
 
 CLASS Assessment
-    PRIVATE
-        assessmentID : Number
-        assessmentName : String
+    ATTRIBUTES
+       PRIVATE assessmentID : Number
+        PRIVATE assessmentName : String
 
     CONSTRUCTOR(assessmentID, assessmentName)
         SET assessmentID
@@ -602,11 +598,11 @@ END CLASS
 
 
 CLASS Grade
-    PRIVATE
-        gradeID : Number
-        score : Number
-        weighting : Number
-        assessment : Assessment
+    ATTRIBUTES
+       PRIVATE gradeID : Number
+       PRIVATE score : Number
+       PRIVATE weighting : Number
+       PRIVATE assessment : Assessment
 
     CONSTRUCTOR(gradeID, score, weighting, assessment)
         SET gradeID
@@ -627,11 +623,11 @@ END CLASS
 
 
 CLASS Student
-    PRIVATE
-        studentID : Number
-        name : String
-        dateOfBirth : Date
-        grades : List<Grade>
+    ATTRIBUTES
+       PRIVATE studentID : Number
+       PRIVATE name : String
+       PRIVATE dateOfBirth : Date
+       PRIVATE grades : List<Grade>
 
     CONSTRUCTOR(studentID, name, dateOfBirth)
         SET studentID
@@ -669,11 +665,11 @@ START
     BEGIN
 
 CLASS PolicyHolder
-    PRIVATE
-        holderID : Number
-        name : String
-        phone : Number
-        address : String
+    ATTRIBUTES
+       PRIVATE holderID : Number
+       PRIVATE name : String
+       PRIVATE phone : Number
+       PRIVATE address : String
 
     CONSTRUCTOR(holderID, name, phone, address)
         SET holderID
@@ -690,10 +686,10 @@ END CLASS
 
 
 CLASS Coverage
-    PRIVATE
-        coverageID : Number
-        coverageType : String
-        coverageLimit : Number
+    ATTRIBUTES
+       PRIVATE coverageID : Number
+       PRIVATE coverageType : String
+       PRIVATE coverageLimit : Number
 
     CONSTRUCTOR(coverageID, coverageType, coverageLimit)
         SET coverageID
@@ -712,12 +708,12 @@ END CLASS
 
 
 CLASS Claim
-    PRIVATE
-        claimID : Number
-        claimDate : Date
-        amount : Number
-        status : String
-        coverage : Coverage
+    ATTRIBUTES
+       PRIVATE claimID : Number
+       PRIVATE claimDate : Date
+       PRIVATE amount : Number
+       PRIVATE status : String
+       PRIVATE coverage : Coverage
 
     CONSTRUCTOR(claimID, claimDate, amount, status, coverage)
         SET claimID
@@ -744,12 +740,12 @@ END CLASS
 
 
 CLASS Policy
-    PRIVATE
-        policyID : Number
-        issueDate : Date
-        policyHolder : PolicyHolder
-        coverages : List<Coverage>
-        claims : List<Claim>
+    ATTRIBUTES
+       PRIVATE policyID : Number
+       PRIVATE issueDate : Date
+       PRIVATE policyHolder : PolicyHolder
+       PRIVATE coverages : List<Coverage>
+       PRIVATE claims : List<Claim>
 
     CONSTRUCTOR(policyID, issueDate, policyHolder)
         SET policyID
@@ -797,10 +793,10 @@ END
 
 Task 283:
 CLASS Customer
-    PRIVATE
-        customerID : Number
-        name : String
-        phone : Number
+    ATTRIBUTES
+       PRIVATE customerID : Number
+       PRIVATE name : String
+       PRIVATE phone : Number
 
     CONSTRUCTOR(customerID, name, phone)
         SET customerID
@@ -815,10 +811,10 @@ END CLASS
 
 
 CLASS Model
-    PRIVATE
-        modelID : Number
-        modelName : String
-        basePrice : Number
+    ATTRIBUTES
+       PRIVATE modelID : Number
+       PRIVATE modelName : String
+       PRIVATE basePrice : Number
 
     CONSTRUCTOR(modelID, modelName, basePrice)
         SET modelID
@@ -833,12 +829,12 @@ END CLASS
 
 
 CLASS Vehicle
-    PRIVATE
-        vehicleID : Number
-        color : String
-        listedPrice : Number
-        available : Boolean
-        model : Model
+    ATTRIBUTES
+       PRIVATE vehicleID : Number
+       PRIVATE color : String
+       PRIVATE listedPrice : Number
+       PRIVATE available : Boolean
+       PRIVATE model : Model
 
     CONSTRUCTOR(vehicleID, color, listedPrice, model)
         SET vehicleID
@@ -865,10 +861,10 @@ END CLASS
 
 
 CLASS AddOnFeature
-    PRIVATE
-        featureID : Number
-        featureName : String
-        cost : Number
+    ATTRIBUTES
+       PRIVATE featureID : Number
+       PRIVATE featureName : String
+       PRIVATE cost : Number
 
     CONSTRUCTOR(featureID, featureName, cost)
         SET featureID
@@ -883,12 +879,12 @@ END CLASS
 
 
 CLASS Sale
-    PRIVATE
-        saleID : Number
-        customer : Customer
-        vehicle : Vehicle
-        agreedPrice : Number
-        addOns : List<AddOnFeature>
+    ATTRIBUTES
+       PRIVATE saleID : Number
+       PRIVATE customer : Customer
+       PRIVATE vehicle : Vehicle
+       PRIVATE agreedPrice : Number
+       PRIVATE addOns : List<AddOnFeature>
 
     CONSTRUCTOR(saleID, customer, vehicle, agreedPrice)
         SET saleID
@@ -914,10 +910,10 @@ END CLASS
 
 Task 284:
 CLASS Couple
-    PRIVATE
-        coupleID : Number
-        brideName : String
-        groomName : String
+    ATTRIBUTES
+       PRIVATE coupleID : Number
+       PRIVATE brideName : String
+       PRIVATE groomName : String
 
     CONSTRUCTOR(coupleID, brideName, groomName)
         SET coupleID
@@ -933,12 +929,12 @@ END CLASS
 
 
 CLASS Vendor
-    PRIVATE
-        vendorID : Number
-        vendorName : String
-        phone : Number
-        specialty : String
-        bookedDates : List<Date>
+    ATTRIBUTES
+       PRIVATE vendorID : Number
+       PRIVATE vendorName : String
+       PRIVATE phone : Number
+       PRIVATE specialty : String
+       PRIVATE bookedDates : List<Date>
 
     CONSTRUCTOR(vendorID, vendorName, phone, specialty)
         SET vendorID
@@ -959,10 +955,10 @@ END CLASS
 
 
 CLASS Guest
-    PRIVATE
-        guestID : Number
-        guestName : String
-        phone : Number
+    ATTRIBUTES
+       PRIVATE guestID : Number
+       PRIVATE guestName : String
+       PRIVATE phone : Number
 
     CONSTRUCTOR(guestID, guestName, phone)
         SET guestID
@@ -977,12 +973,12 @@ END CLASS
 
 
 CLASS PlanningTask
-    PRIVATE
-        taskID : Number
-        taskName : String
-        completed : Boolean
-        cost : Number
-        vendor : Vendor
+    ATTRIBUTES
+       PRIVATE taskID : Number
+       PRIVATE taskName : String
+       PRIVATE completed : Boolean
+       PRIVATE cost : Number
+       PRIVATE vendor : Vendor
 
     CONSTRUCTOR(taskID, taskName, cost, vendor)
         SET taskID
@@ -1003,13 +999,13 @@ END CLASS
 
 
 CLASS Event
-    PRIVATE
-        eventID : Number
-        eventDate : Date
-        budget : Number
-        couple : Couple
-        tasks : List<PlanningTask>
-        guests : List<Guest>
+    ATTRIBUTES
+       PRIVATE eventID : Number
+       PRIVATE eventDate : Date
+       PRIVATE budget : Number
+       PRIVATE couple : Couple
+       PRIVATE tasks : List<PlanningTask>
+       PRIVATE guests : List<Guest>
 
     CONSTRUCTOR(eventID, eventDate, budget, couple)
         SET eventID
@@ -1053,12 +1049,487 @@ CLASS Event
     END METHOD
 END CLASS
 
+Task 285:
+CLASS Artist
+    ATTRIBUTES
+        PRIVATE artistID : Number
+        PRIVATE artistName : String
+        PRIVATE genre : String
+
+CONSTRUCTOR(artistID, artistName, genre)
+        SET artistID
+        SET artistName
+        SET genre
+    END CONSTRUCTOR
+
+    METHOD updateGenre(newGenre)
+        genre to newGenre
+    END METHOD
+
+    METHOD displayArtist()
+        PRINT artistName
+        PRINT genre
+    END METHOD
+END CLASS
+
+
+CLASS Venue
+   ATTRIBUTES
+       PRIVATE venueID : Number
+       PRIVATE venueName : String
+       PRIVATE location : String
+       PRIVATE seatingChart : String
+       PRIVATE concerts : List<Concert>
+
+    CONSTRUCTOR(venueID, venueName, location, seatingChart)
+        SET venueID
+        SET venueName
+        SET location
+        SET seatingChart
+        CREATE empty concerts list
+    END CONSTRUCTOR
+
+    METHOD addConcert(concert)
+        ADD concert TO concerts
+    END METHOD
+
+    METHOD removeConcert(concert)
+        REMOVE concert FROM concerts
+    END METHOD
+
+    METHOD checkDateAvailable(date)
+        FOR EACH concert IN concerts
+            IF concert.concertDate = date THEN
+                RETURN FALSE
+            END IF
+        END FOR
+        RETURN TRUE
+    END METHOD
+END CLASS
+
+
+CLASS TicketTier
+    ATTRIBUTES
+       PRIVATE tierID : Number
+       PRIVATE tierName : String
+       PRIVATE  price : Number
+       PRIVATE seatLimit : Number
+
+    CONSTRUCTOR(tierID, tierName, price, seatLimit)
+        SET tierID
+        SET tierName
+        SET price
+        SET seatLimit
+    END CONSTRUCTOR
+
+    METHOD updatePrice(newPrice)
+        price to newPrice
+    END METHOD
+
+    METHOD getPrice()
+        RETURN price
+    END METHOD
+END CLASS
+
+
+CLASS Fan
+   ATTRIBUTES
+        PRIVATE fanID : Number
+        PRIVATE fanName : String
+        PRIVATE phone : Number
+
+    CONSTRUCTOR(fanID, fanName, phone)
+        SET fanID
+        SET fanName
+        SET phone
+    END CONSTRUCTOR
+
+    METHOD buyTicket(ticket)
+        PRINT "Ticket Purchased"
+    END METHOD
+
+    METHOD viewTickets()
+        PRINT "Displaying Tickets"
+    END METHOD
+END CLASS
+
+
+CLASS Seat
+    ATTRIBUTES
+       PRIVATE seatNumber : String
+
+    CONSTRUCTOR(seatNumber)
+        SET seatNumber
+    END CONSTRUCTOR
+
+    METHOD getSeatNumber()
+        RETURN seatNumber
+    END METHOD
+END CLASS
+
+
+CLASS Ticket
+     ATTRIBUTES
+        PRIVATE ticketID : Number
+        PRIVATE fan : Fan
+        PRIVATE concert : Concert
+        PRIVATE seat : Seat
+        PRIVATE tier : TicketTier
+
+    CONSTRUCTOR(ticketID, fan, concert, seat, tier)
+        SET ticketID
+        SET fan
+        SET concert
+        SET seat
+        SET tier
+    END CONSTRUCTOR
+
+    METHOD getPrice()
+        RETURN tier.getPrice()
+    END METHOD
+
+    METHOD displayTicket()
+        PRINT ticketID
+        PRINT seat.getSeatNumber()
+        PRINT getPrice()
+    END METHOD
+END CLASS
+
+
+CLASS Concert
+    ATTRIBUTES
+       PRIVATE concertID : Number
+       PRIVATE concertDate : Date
+       PRIVATE artist : Artist
+       PRIVATE venue : Venue
+       PRIVATE ticketTiers : List<TicketTier>
+       PRIVATE tickets : List<Ticket>
+
+    CONSTRUCTOR(concertID, concertDate, artist, venue)
+        SET concertID
+        SET concertDate
+        SET artist
+        SET venue
+        CREATE empty ticketTiers list
+        CREATE empty tickets list
+    END CONSTRUCTOR
+
+    METHOD addTier(tier)
+        ADD tier TO ticketTiers
+    END METHOD
+
+    METHOD sellTicket(ticket)
+        FOR EACH soldTicket IN tickets
+            IF soldTicket.seat.getSeatNumber() = ticket.seat.getSeatNumber() THEN
+                PRINT "Seat Already Sold"
+                RETURN
+            END IF
+        END FOR
+
+        ADD ticket TO tickets
+    END METHOD
+
+    METHOD getRemainingTickets()
+        totalSeats to 0
+
+        FOR EACH tier IN ticketTiers
+            totalSeats to totalSeats + tier.seatLimit
+        END FOR
+
+        RETURN totalSeats - SIZE(tickets)
+    END METHOD
+END CLASS
+
+
+Task 286:
+
+CLASS Developer
+     ATTRIBUTES
+       PRIVATE developerID : Number
+       PRIVATE developerName : String
+       PRIVATE role : String
+       PRIVATE capacity : Number
+       PRIVATE assignedTasks : List<Task>
+
+    CONSTRUCTOR(developerID, developerName, role, capacity)
+        SET developerID
+        SET developerName
+        SET role
+        SET capacity
+        CREATE empty assignedTasks list
+    END CONSTRUCTOR
+
+    METHOD assignTask(task)
+        IF SIZE(assignedTasks) < capacity THEN
+            ADD task TO assignedTasks
+        ELSE
+            PRINT "Developer Capacity Reached"
+        END IF
+    END METHOD
+
+    METHOD removeTask(task)
+        REMOVE task FROM assignedTasks
+    END METHOD
+
+    METHOD getWorkload()
+        RETURN SIZE(assignedTasks)
+    END METHOD
+END CLASS
+
+
+CLASS Task
+    ATTRIBUTES
+        PRIVATE taskID : Number
+        PRIVATE taskName : String
+        PRIVATE description : String
+        PRIVATE status : String
+        PRIVATE developer : Developer
+
+    CONSTRUCTOR(taskID, taskName, description, status, developer)
+        SET taskID
+        SET taskName
+        SET description
+        SET status
+        SET developer
+    END CONSTRUCTOR
+
+    METHOD assignDeveloper(newDeveloper)
+        developer to newDeveloper
+    END METHOD
+
+    METHOD updateStatus(newStatus)
+        status to newStatus
+    END METHOD
+
+    METHOD markComplete()
+        IF status = "Testing" THEN
+            status to "Completed"
+        ELSE
+            PRINT "Task Cannot Be Completed Yet"
+        END IF
+    END METHOD
+END CLASS
+
+
+CLASS Backlog
+   ATTRIBUTES
+        PRIVATE backlogID : Number
+        PRIVATE tasks : List<Task>
+
+    CONSTRUCTOR(backlogID)
+        SET backlogID
+        CREATE empty tasks list
+    END CONSTRUCTOR
+
+    METHOD addTask(task)
+        ADD task TO tasks
+    END METHOD
+
+    METHOD removeTask(task)
+        REMOVE task FROM tasks
+    END METHOD
+
+    METHOD getTasks()
+        RETURN tasks
+    END METHOD
+END CLASS
+
+
+CLASS Sprint
+   ATTRIBUTES
+          PRIVATE sprintID : Number
+          PRIVATE sprintName : String
+          PRIVATE startDate : Date
+          PRIVATE endDate : Date
+          PRIVATE tasks : List<Task>
+
+    CONSTRUCTOR(sprintID, sprintName, startDate, endDate)
+        SET sprintID
+        SET sprintName
+        SET startDate
+        SET endDate
+        CREATE empty tasks list
+    END CONSTRUCTOR
+
+    METHOD addTask(task)
+        ADD task TO tasks
+    END METHOD
+
+    METHOD removeTask(task)
+        REMOVE task FROM tasks
+    END METHOD
+
+    METHOD calculateProgress()
+        completed ← 0
+
+        FOR EACH task IN tasks
+            IF task.status = "Completed" THEN
+                completed ← completed + 1
+            END IF
+        END FOR
+
+        RETURN (completed * 100) / SIZE(tasks)
+    END METHOD
+
+    METHOD getTasks()
+        RETURN tasks
+    END METHOD
+END CLASS
 
 
 
+Task 287:
+CLASS Farm
+    ATTRIBUTES
+        PRIVATE farmID : Number
+        PRIVATE farmName : String
+        PRIVATE fields : List<Field>
+        PRIVATE workers : List<Worker>
+
+    CONSTRUCTOR(farmID, farmName)
+        SET farmID
+        SET farmName
+        CREATE empty fields list
+        CREATE empty workers list
+    END CONSTRUCTOR
+
+    METHOD addField(field)
+        ADD field TO fields
+    END METHOD
+
+    METHOD addWorker(worker)
+        ADD worker TO workers
+    END METHOD
+
+    METHOD getFields()
+        RETURN fields
+    END METHOD
+
+    METHOD getWorkers()
+        RETURN workers
+    END METHOD
+END CLASS
 
 
+CLASS Crop
+   ATTRIBUTES
+       PRIVATE cropID : Number
+       PRIVATE cropName : String
+       PRIVATE waterNeed : Number
+       PRIVATE expectedYield : Number
+
+    CONSTRUCTOR(cropID, cropName, waterNeed, expectedYield)
+        SET cropID
+        SET cropName
+        SET waterNeed
+        SET expectedYield
+    END CONSTRUCTOR
+
+    METHOD updateWaterNeed(newWaterNeed)
+        waterNeed to newWaterNeed
+    END METHOD
+
+    METHOD getWaterNeed()
+        RETURN waterNeed
+    END METHOD
+
+    METHOD getExpectedYield()
+        RETURN expectedYield
+    END METHOD
+END CLASS
 
 
+CLASS Worker
+    ATTRIBUTES
+       PRIVATE workerID : Number
+       PRIVATE workerName : String
+       PRIVATE dailyLimit : Number
+       PRIVATE activities : List<Activity>
 
+    CONSTRUCTOR(workerID, workerName, dailyLimit)
+        SET workerID
+        SET workerName
+        SET dailyLimit
+        CREATE empty activities list
+    END CONSTRUCTOR
+
+    METHOD assignActivity(activity)
+        IF SIZE(activities) < dailyLimit THEN
+            ADD activity TO activities
+        ELSE
+            PRINT "Daily Workload Limit Reached"
+        END IF
+    END METHOD
+
+    METHOD removeActivity(activity)
+        REMOVE activity FROM activities
+    END METHOD
+
+    METHOD getDailyWorkload()
+        RETURN SIZE(activities)
+    END METHOD
+END CLASS
+
+
+CLASS Activity
+    ATTRIBUTES
+         PRIVATE activityID : Number
+         PRIVATEactivityType : String
+         PRIVATE activityDate : Date
+         PRIVATE worker : Worker
+
+    CONSTRUCTOR(activityID, activityType, activityDate, worker)
+        SET activityID
+        SET activityType
+        SET activityDate
+        SET worker
+    END CONSTRUCTOR
+
+    METHOD displayActivity()
+        PRINT activityType
+        PRINT activityDate
+    END METHOD
+END CLASS
+
+
+CLASS Field
+   ATTRIBUTES
+         PRIVATE fieldID : Number
+         PRIVATE fieldName : String
+         PRIVATE season : String
+         PRIVATE waterAmount : Number
+         PRIVATE crop : Crop
+         PRIVATE activities : List<Activity>
+
+    CONSTRUCTOR(fieldID, fieldName, season, crop)
+        SET fieldID
+        SET fieldName
+        SET season
+        SET crop
+        waterAmount to 0
+        CREATE empty activities list
+    END CONSTRUCTOR
+
+    METHOD plantCrop(newCrop)
+        crop to newCrop
+    END METHOD
+
+    METHOD logActivity(activity)
+        IF activity.activityType = "Watering" THEN
+            IF waterAmount >= crop.getWaterNeed() THEN
+                ADD activity TO activities
+            ELSE
+                PRINT "Insufficient Water"
+            END IF
+        ELSE
+            ADD activity TO activities
+        END IF
+    END METHOD
+
+    METHOD calculateEstimatedYield()
+        completedActivities ← SIZE(activities)
+
+        RETURN crop.getExpectedYield() * completedActivities / 10
+    END METHOD
+END CLASS
 
