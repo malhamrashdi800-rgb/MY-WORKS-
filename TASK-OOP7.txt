@@ -1,0 +1,430 @@
+Task 308: Insurance Claims Processing
+START
+   BAGIN
+CLASS Claim
+    ATTRIBUTES
+        PRIVATE claimNumber : Number
+        PRIVATE dateFiled : String
+        PRIVATE status : String
+        PRIVATE documentationFolder : DocumentationFolder 
+    CONSTRUCTOR(claimNumber, dateFiled, status, documentationFolder)
+        SET claimNumber
+        SET dateFiled
+        SET status
+        SET documentationFolder
+    END CONSTRUCTOR
+    METHOD calculatePayout()
+        RETURN 0
+    END METHOD
+END CLASS
+CLASS VehicleClaim EXTENDS Claim
+    ATTRIBUTES
+        PRIVATE repairEstimate : Number
+        PRIVATE excess : Number
+    CONSTRUCTOR(claimNumber, dateFiled, status, documentationFolder, repairEstimate, excess)
+        CALL Claim(claimNumber, dateFiled, status, documentationFolder)
+        SET repairEstimate
+        SET excess
+    END CONSTRUCTOR
+    METHOD calculatePayout()
+        RETURN repairEstimate - excess
+    END METHOD
+END CLASS
+CLASS MedicalClaim EXTENDS Claim
+    ATTRIBUTES
+        PRIVATE treatmentCost : Number
+        PRIVATE coverageLimit : Number
+    CONSTRUCTOR(claimNumber, dateFiled, status, documentationFolder, treatmentCost, coverageLimit)
+        CALL Claim(claimNumber, dateFiled, status, documentationFolder)
+        SET treatmentCost
+        SET coverageLimit
+    END CONSTRUCTOR
+    METHOD calculatePayout()
+        IF treatmentCost > coverageLimit THEN
+            RETURN coverageLimit
+        ELSE
+            RETURN treatmentCost
+        END IF
+    END METHOD
+END CLASS
+CLASS PropertyClaim EXTENDS Claim
+    ATTRIBUTES
+        PRIVATE damageValue : Number
+        PRIVATE maintenanceReduction : Number
+    CONSTRUCTOR(claimNumber, dateFiled, status, documentationFolder, damageValue, maintenanceReduction)
+        CALL Claim(claimNumber, dateFiled, status, documentationFolder)
+        SET damageValue
+        SET maintenanceReduction
+    END CONSTRUCTOR
+    METHOD calculatePayout()
+        RETURN damageValue - (damageValue * maintenanceReduction / 100)
+    END METHOD
+END CLASS
+CLASS DocumentationFolder
+    ATTRIBUTES
+        PRIVATE documents : List<String>
+    CONSTRUCTOR()
+        CREATE empty documents list
+    END CONSTRUCTOR
+    METHOD addDocument(document)
+        ADD document TO documents
+    END METHOD
+END CLASS
+CLASS Policy
+    ATTRIBUTES
+        PRIVATE policyNumber : Number
+        PRIVATE claims : List<Claim>
+    CONSTRUCTOR(policyNumber)
+        SET policyNumber
+        CREATE empty claims list
+    END CONSTRUCTOR
+    METHOD addClaim(claim)
+        ADD claim TO claims
+    END METHOD
+END CLASS
+
+   END
+STOP
+
+Task 309: University Library Loans
+START
+   BAGIN
+CLASS LoanItem
+    ATTRIBUTES
+        PRIVATE title : String
+        PRIVATE barcode : String
+        PRIVATE loanDuration : Number
+        PRIVATE conditionReport : ConditionReport
+    CONSTRUCTOR(title, barcode, loanDuration, conditionReport)
+        SET title
+        SET barcode
+        SET loanDuration
+        SET conditionReport
+    END CONSTRUCTOR
+    METHOD calculateLateFee(daysLate)
+        RETURN 0
+    END METHOD
+END CLASS
+CLASS StandardBook EXTENDS LoanItem
+    ATTRIBUTES
+        PRIVATE feePerDay : Number
+    CONSTRUCTOR(title, barcode, loanDuration, conditionReport, feePerDay)
+        CALL LoanItem(title, barcode, loanDuration, conditionReport)
+        SET feePerDay
+    END CONSTRUCTOR
+    METHOD calculateLateFee(daysLate)
+        RETURN daysLate * feePerDay
+    END METHOD
+END CLASS
+CLASS ReferenceTextbook EXTENDS LoanItem
+    ATTRIBUTES
+        PRIVATE feePerDay : Number
+    CONSTRUCTOR(title, barcode, loanDuration, conditionReport, feePerDay)
+        CALL LoanItem(title, barcode, loanDuration, conditionReport)
+        SET feePerDay
+    END CONSTRUCTOR
+    METHOD calculateLateFee(daysLate)
+        RETURN daysLate * feePerDay
+    END METHOD
+END CLASS
+CLASS JournalIssue EXTENDS ReferenceTextbook
+    CONSTRUCTOR(title, barcode, loanDuration, conditionReport, feePerDay)
+        CALL ReferenceTextbook(title, barcode, loanDuration, conditionReport, feePerDay)
+    END CONSTRUCTOR
+    METHOD calculateLateFee(daysLate)
+        RETURN CALL ReferenceTextbook.calculateLateFee(daysLate)
+    END METHOD
+    METHOD renew(daysLate)
+        IF daysLate > 0 THEN
+            DISPLAY "Cannot Renew"
+        ELSE
+            DISPLAY "Renewed"
+        END IF
+    END METHOD
+END CLASS
+CLASS ConditionReport
+    ATTRIBUTES
+        PRIVATE damageNotes : String
+    CONSTRUCTOR(damageNotes)
+        SET damageNotes
+    END CONSTRUCTOR
+END CLASS
+CLASS StudentAccount
+    ATTRIBUTES
+        PRIVATE studentID : Number
+        PRIVATE studentName : String
+        PRIVATE loanItems : List<LoanItem>
+    CONSTRUCTOR(studentID, studentName)
+        SET studentID
+        SET studentName
+        CREATE empty loanItems list
+    END CONSTRUCTOR
+    METHOD addLoanItem(loanItem)
+        ADD loanItem TO loanItems
+    END METHOD
+END CLASS
+
+   END
+STOP
+
+Task 310: Theme Park Ride Queues
+START
+   BAGIN
+CLASS Ride
+    ATTRIBUTES
+        PRIVATE rideName : String
+        PRIVATE location : String
+        PRIVATE safetyInspectionLog : SafetyInspectionLog
+    CONSTRUCTOR(rideName, location, safetyInspectionLog)
+        SET rideName
+        SET location
+        SET safetyInspectionLog
+    END CONSTRUCTOR
+    METHOD calculateWaitTime()
+        RETURN 0
+    END METHOD
+END CLASS
+CLASS RollerCoaster EXTENDS Ride
+    ATTRIBUTES
+        PRIVATE peopleInLine : Number
+        PRIVATE carCapacity : Number
+        PRIVATE rideCycleTime : Number
+    CONSTRUCTOR(rideName, location, safetyInspectionLog, peopleInLine, carCapacity, rideCycleTime)
+        CALL Ride(rideName, location, safetyInspectionLog)
+        SET peopleInLine
+        SET carCapacity
+        SET rideCycleTime
+    END CONSTRUCTOR
+    METHOD calculateWaitTime()
+        RETURN (peopleInLine / carCapacity) * rideCycleTime
+    END METHOD
+END CLASS
+CLASS WaterRide EXTENDS Ride
+    ATTRIBUTES
+        PRIVATE peopleInLine : Number
+        PRIVATE boatCapacity : Number
+        PRIVATE rideCycleTime : Number
+        PRIVATE loadingTime : Number
+    CONSTRUCTOR(rideName, location, safetyInspectionLog, peopleInLine, boatCapacity, rideCycleTime, loadingTime)
+        CALL Ride(rideName, location, safetyInspectionLog)
+        SET peopleInLine
+        SET boatCapacity
+        SET rideCycleTime
+        SET loadingTime
+    END CONSTRUCTOR
+    METHOD calculateWaitTime()
+        RETURN (peopleInLine / boatCapacity) * (rideCycleTime + loadingTime)
+    END METHOD
+END CLASS
+CLASS VIPAccessRide EXTENDS RollerCoaster
+    ATTRIBUTES
+        PRIVATE vipGuests : Number
+        PRIVATE standardGuests : Number
+    CONSTRUCTOR(rideName, location, safetyInspectionLog, peopleInLine, carCapacity, rideCycleTime, vipGuests, standardGuests)
+        CALL RollerCoaster(rideName, location, safetyInspectionLog, peopleInLine, carCapacity, rideCycleTime)
+        SET vipGuests
+        SET standardGuests
+    END CONSTRUCTOR
+    METHOD calculateVIPWaitTime()
+        RETURN (vipGuests / carCapacity) * rideCycleTime
+    END METHOD
+    METHOD calculateStandardWaitTime()
+        RETURN (standardGuests / carCapacity) * rideCycleTime
+    END METHOD
+END CLASS
+CLASS SafetyInspectionLog
+    ATTRIBUTES
+        PRIVATE inspectionDate : String
+        PRIVATE inspectionResult : String
+    CONSTRUCTOR(inspectionDate, inspectionResult)
+        SET inspectionDate
+        SET inspectionResult
+    END CONSTRUCTOR
+END CLASS
+CLASS Park
+    ATTRIBUTES
+        PRIVATE parkName : String
+        PRIVATE rides : List<Ride>
+    CONSTRUCTOR(parkName)
+        SET parkName
+        CREATE empty rides list
+    END CONSTRUCTOR
+    METHOD addRide(ride)
+        ADD ride TO rides
+    END METHOD
+END CLASS
+
+   END
+STOP
+
+Task 311: Freelancer Invoicing Platform
+START
+   BAGIN
+CLASS Invoice
+    ATTRIBUTES
+        PRIVATE invoiceNumber : Number
+        PRIVATE dateIssued : String
+        PRIVATE clientName : String
+        PRIVATE paymentTerms : PaymentTerms
+    CONSTRUCTOR(invoiceNumber, dateIssued, clientName, paymentTerms)
+        SET invoiceNumber
+        SET dateIssued
+        SET clientName
+        SET paymentTerms
+    END CONSTRUCTOR
+    METHOD calculateTotalAmount()
+        RETURN 0
+    END METHOD
+END CLASS
+CLASS FixedPriceInvoice EXTENDS Invoice
+    ATTRIBUTES
+        PRIVATE projectFee : Number
+    CONSTRUCTOR(invoiceNumber, dateIssued, clientName, paymentTerms, projectFee)
+        CALL Invoice(invoiceNumber, dateIssued, clientName, paymentTerms)
+        SET projectFee
+    END CONSTRUCTOR
+    METHOD calculateTotalAmount()
+        RETURN projectFee
+    END METHOD
+END CLASS
+CLASS HourlyInvoice EXTENDS Invoice
+    ATTRIBUTES
+        PRIVATE approvedHours : Number
+        PRIVATE hourlyRate : Number
+    CONSTRUCTOR(invoiceNumber, dateIssued, clientName, paymentTerms, approvedHours, hourlyRate)
+        CALL Invoice(invoiceNumber, dateIssued, clientName, paymentTerms)
+        SET approvedHours
+        SET hourlyRate
+    END CONSTRUCTOR
+    METHOD calculateTotalAmount()
+        RETURN approvedHours * hourlyRate
+    END METHOD
+END CLASS
+CLASS RetainerInvoice EXTENDS FixedPriceInvoice
+    ATTRIBUTES
+        PRIVATE includedHours : Number
+        PRIVATE extraHours : Number
+        PRIVATE hourlyRate : Number
+    CONSTRUCTOR(invoiceNumber, dateIssued, clientName, paymentTerms, projectFee, includedHours, extraHours, hourlyRate)
+        CALL FixedPriceInvoice(invoiceNumber, dateIssued, clientName, paymentTerms, projectFee)
+        SET includedHours
+        SET extraHours
+        SET hourlyRate
+    END CONSTRUCTOR
+    METHOD calculateTotalAmount()
+        RETURN CALL FixedPriceInvoice.calculateTotalAmount() + (extraHours * hourlyRate)
+    END METHOD
+END CLASS
+CLASS PaymentTerms
+    ATTRIBUTES
+        PRIVATE dueDate : String
+        PRIVATE lateInterestRate : Number
+    CONSTRUCTOR(dueDate, lateInterestRate)
+        SET dueDate
+        SET lateInterestRate
+    END CONSTRUCTOR
+END CLASS
+CLASS FreelancerAccount
+    ATTRIBUTES
+        PRIVATE freelancerID : Number
+        PRIVATE freelancerName : String
+        PRIVATE invoices : List<Invoice>
+    CONSTRUCTOR(freelancerID, freelancerName)
+        SET freelancerID
+        SET freelancerName
+        CREATE empty invoices list
+    END CONSTRUCTOR
+    METHOD addInvoice(invoice)
+        ADD invoice TO invoices
+    END METHOD
+END CLASS
+
+   END
+STOP
+
+Task 312: Data Center Server Management
+START
+   BAGIN
+CLASS Server
+    ATTRIBUTES
+        PRIVATE serialNumber : String
+        PRIVATE uptime : Number
+        PRIVATE hardwareSpecification : HardwareSpecification
+    CONSTRUCTOR(serialNumber, uptime, hardwareSpecification)
+        SET serialNumber
+        SET uptime
+        SET hardwareSpecification
+    END CONSTRUCTOR
+    METHOD calculateLoad()
+        RETURN 0
+    END METHOD
+END CLASS
+CLASS WebServer EXTENDS Server
+    ATTRIBUTES
+        PRIVATE activeConnections : Number
+        PRIVATE maximumConnections : Number
+    CONSTRUCTOR(serialNumber, uptime, hardwareSpecification, activeConnections, maximumConnections)
+        CALL Server(serialNumber, uptime, hardwareSpecification)
+        SET activeConnections
+        SET maximumConnections
+    END CONSTRUCTOR
+    METHOD calculateLoad()
+        RETURN (activeConnections / maximumConnections) * 100
+    END METHOD
+END CLASS
+CLASS DatabaseServer EXTENDS Server
+    ATTRIBUTES
+        PRIVATE queryThroughput : Number
+        PRIVATE maximumQueriesPerSecond : Number
+    CONSTRUCTOR(serialNumber, uptime, hardwareSpecification, queryThroughput, maximumQueriesPerSecond)
+        CALL Server(serialNumber, uptime, hardwareSpecification)
+        SET queryThroughput
+        SET maximumQueriesPerSecond
+    END CONSTRUCTOR
+    METHOD calculateLoad()
+        RETURN (queryThroughput / maximumQueriesPerSecond) * 100
+    END METHOD
+    METHOD acceptConnection()
+        IF calculateLoad() < 100 THEN
+            DISPLAY "Connection Accepted"
+        ELSE
+            DISPLAY "Server Full"
+        END IF
+    END METHOD
+END CLASS
+CLASS CacheServer EXTENDS DatabaseServer
+    ATTRIBUTES
+        PRIVATE cacheHitRatio : Number
+    CONSTRUCTOR(serialNumber, uptime, hardwareSpecification, queryThroughput, maximumQueriesPerSecond, cacheHitRatio)
+        CALL DatabaseServer(serialNumber, uptime, hardwareSpecification, queryThroughput, maximumQueriesPerSecond)
+        SET cacheHitRatio
+    END CONSTRUCTOR
+    METHOD calculateLoad()
+        RETURN CALL DatabaseServer.calculateLoad() * (1 - cacheHitRatio / 100)
+    END METHOD
+END CLASS
+CLASS HardwareSpecification
+    ATTRIBUTES
+        PRIVATE cpu : String
+        PRIVATE ram : Number
+        PRIVATE storage : Number
+    CONSTRUCTOR(cpu, ram, storage)
+        SET cpu
+        SET ram
+        SET storage
+    END CONSTRUCTOR
+END CLASS
+CLASS Rack
+    ATTRIBUTES
+        PRIVATE rackID : Number
+        PRIVATE servers : List<Server>
+    CONSTRUCTOR(rackID)
+        SET rackID
+        CREATE empty servers list
+    END CONSTRUCTOR
+    METHOD addServer(server)
+        ADD server TO servers
+    END METHOD
+END CLASS
+   END
+STOP
