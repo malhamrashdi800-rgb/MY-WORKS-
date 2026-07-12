@@ -1,22 +1,24 @@
- Task 293: Shape Drawing App
+Task 293: Shape Drawing App
+
 START
-  BEGIN
+BEGIN
+
 CLASS Shape
     ATTRIBUTES
         PRIVATE color : String
-        PRIVATE position : String
+        PRIVATE x : Number
+        PRIVATE y : Number
 
-    CONSTRUCTOR(color, position)
-        SET color
-        SET position
+    CONSTRUCTOR(color, x, y)
+        SET this.color = color
+        SET this.x = x
+        SET this.y = y
     END CONSTRUCTOR
 
-    METHOD getArea()
-        RETURN 0
+    ABSTRACT METHOD getArea()
     END METHOD
 
-    METHOD getPerimeter()
-        RETURN 0
+    ABSTRACT METHOD getPerimeter()
     END METHOD
 END CLASS
 
@@ -24,9 +26,9 @@ CLASS Circle EXTENDS Shape
     ATTRIBUTES
         PRIVATE radius : Number
 
-    CONSTRUCTOR(color, position, radius)
-        CALL Shape(color, position)
-        SET radius
+    CONSTRUCTOR(color, x, y, radius)
+        CALL SUPER(color, x, y)
+        SET this.radius = radius
     END CONSTRUCTOR
 
     METHOD getArea()
@@ -43,10 +45,10 @@ CLASS Rectangle EXTENDS Shape
         PRIVATE width : Number
         PRIVATE height : Number
 
-    CONSTRUCTOR(color, position, width, height)
-        CALL Shape(color, position)
-        SET width
-        SET height
+    CONSTRUCTOR(color, x, y, width, height)
+        CALL SUPER(color, x, y)
+        SET this.width = width
+        SET this.height = height
     END CONSTRUCTOR
 
     METHOD getArea()
@@ -64,11 +66,11 @@ CLASS Triangle EXTENDS Shape
         PRIVATE side2 : Number
         PRIVATE side3 : Number
 
-    CONSTRUCTOR(color, position, side1, side2, side3)
-        CALL Shape(color, position)
-        SET side1
-        SET side2
-        SET side3
+    CONSTRUCTOR(color, x, y, side1, side2, side3)
+        CALL SUPER(color, x, y)
+        SET this.side1 = side1
+        SET this.side2 = side2
+        SET this.side3 = side3
     END CONSTRUCTOR
 
     METHOD getArea()
@@ -89,17 +91,17 @@ CLASS Canvas
         CREATE empty shapes list
     END CONSTRUCTOR
 
-    METHOD addShape(shape)
+    METHOD addShape(shape : Shape)
         ADD shape TO shapes
     END METHOD
 END CLASS
+
 END
 STOP
-
-
 Task 294: Employee Payroll
+
 START
-  BEGIN
+BEGIN
 
 CLASS Employee
     ATTRIBUTES
@@ -108,13 +110,12 @@ CLASS Employee
         PRIVATE hireDate : String
 
     CONSTRUCTOR(employeeID, employeeName, hireDate)
-        SET employeeID
-        SET employeeName
-        SET hireDate
+        SET this.employeeID = employeeID
+        SET this.employeeName = employeeName
+        SET this.hireDate = hireDate
     END CONSTRUCTOR
 
-    METHOD calculatePay()
-        RETURN 0
+    ABSTRACT METHOD calculatePay()
     END METHOD
 END CLASS
 
@@ -123,8 +124,8 @@ CLASS SalariedEmployee EXTENDS Employee
         PRIVATE monthlySalary : Number
 
     CONSTRUCTOR(employeeID, employeeName, hireDate, monthlySalary)
-        CALL Employee(employeeID, employeeName, hireDate)
-        SET monthlySalary
+        CALL SUPER(employeeID, employeeName, hireDate)
+        SET this.monthlySalary = monthlySalary
     END CONSTRUCTOR
 
     METHOD calculatePay()
@@ -138,9 +139,19 @@ CLASS HourlyEmployee EXTENDS Employee
         PRIVATE hoursWorked : Number
 
     CONSTRUCTOR(employeeID, employeeName, hireDate, hourlyRate, hoursWorked)
-        CALL Employee(employeeID, employeeName, hireDate)
-        SET hourlyRate
-        SET hoursWorked
+        CALL SUPER(employeeID, employeeName, hireDate)
+
+        IF hourlyRate > 0 THEN
+            SET this.hourlyRate = hourlyRate
+        ELSE
+            SET this.hourlyRate = 0
+        END IF
+
+        IF hoursWorked >= 0 THEN
+            SET this.hoursWorked = hoursWorked
+        ELSE
+            SET this.hoursWorked = 0
+        END IF
     END CONSTRUCTOR
 
     METHOD calculatePay()
@@ -155,10 +166,10 @@ CLASS CommissionEmployee EXTENDS Employee
         PRIVATE commissionRate : Number
 
     CONSTRUCTOR(employeeID, employeeName, hireDate, basePay, sales, commissionRate)
-        CALL Employee(employeeID, employeeName, hireDate)
-        SET basePay
-        SET sales
-        SET commissionRate
+        CALL SUPER(employeeID, employeeName, hireDate)
+        SET this.basePay = basePay
+        SET this.sales = sales
+        SET this.commissionRate = commissionRate
     END CONSTRUCTOR
 
     METHOD calculatePay()
@@ -174,33 +185,43 @@ CLASS Payroll
         CREATE empty employees list
     END CONSTRUCTOR
 
-    METHOD addEmployee(employee)
+    METHOD addEmployee(employee : Employee)
         ADD employee TO employees
+    END METHOD
+
+    METHOD calculateTotalPayroll()
+        SET total = 0
+        FOR EACH employee IN employees
+            SET total = total + employee.calculatePay()
+        END FOR
+        RETURN total
     END METHOD
 END CLASS
 
-  END
+END
 STOP
 
 Task 295: Zoo Animal Enclosures
+
 START
-    BEGIN
-  CLASS Animal
+BEGIN
+
+CLASS Animal
     ATTRIBUTES
         PRIVATE name : String
         PRIVATE age : Number
         PRIVATE dietType : String
 
     CONSTRUCTOR(name, age, dietType)
-        SET name
-        SET age
-        SET dietType
+        SET this.name = name
+        SET this.age = age
+        SET this.dietType = dietType
     END CONSTRUCTOR
 
-    METHOD makeSound()
+    ABSTRACT METHOD makeSound()
     END METHOD
 
-    METHOD move()
+    ABSTRACT METHOD move()
     END METHOD
 END CLASS
 
@@ -210,9 +231,9 @@ CLASS Bird EXTENDS Animal
         PRIVATE laysEggs : Boolean
 
     CONSTRUCTOR(name, age, dietType, canFly, laysEggs)
-        CALL Animal(name, age, dietType)
-        SET canFly
-        SET laysEggs
+        CALL SUPER(name, age, dietType)
+        SET this.canFly = canFly
+        SET this.laysEggs = laysEggs
     END CONSTRUCTOR
 
     METHOD makeSound()
@@ -229,8 +250,8 @@ CLASS Fish EXTENDS Animal
         PRIVATE hasGills : Boolean
 
     CONSTRUCTOR(name, age, dietType, hasGills)
-        CALL Animal(name, age, dietType)
-        SET hasGills
+        CALL SUPER(name, age, dietType)
+        SET this.hasGills = hasGills
     END CONSTRUCTOR
 
     METHOD makeSound()
@@ -248,13 +269,13 @@ CLASS Mammal EXTENDS Animal
         PRIVATE givesLiveBirth : Boolean
 
     CONSTRUCTOR(name, age, dietType, hasFur, givesLiveBirth)
-        CALL Animal(name, age, dietType)
-        SET hasFur
-        SET givesLiveBirth
+        CALL SUPER(name, age, dietType)
+        SET this.hasFur = hasFur
+        SET this.givesLiveBirth = givesLiveBirth
     END CONSTRUCTOR
 
     METHOD makeSound()
-        DISPLAY "Mammal Sound"
+        DISPLAY "Roar"
     END METHOD
 
     METHOD move()
@@ -269,22 +290,30 @@ CLASS Enclosure
         PRIVATE animals : List<Animal>
 
     CONSTRUCTOR(enclosureID, temperature)
-        SET enclosureID
-        SET temperature
+        SET this.enclosureID = enclosureID
+        SET this.temperature = temperature
         CREATE empty animals list
     END CONSTRUCTOR
 
-    METHOD addAnimal(animal)
-        ADD animal TO animals
+    METHOD addAnimal(animal : Animal)
+        IF isCompatible(animal) THEN
+            ADD animal TO animals
+        ELSE
+            DISPLAY "Animal is not compatible with this enclosure"
+        END IF
+    END METHOD
+
+    METHOD isCompatible(animal : Animal)
+        RETURN TRUE
     END METHOD
 END CLASS
 
 END
 STOP
-
 Task 296: Online Payment Methods
+
 START
-    BEGIN
+BEGIN
 
 CLASS PaymentMethod
     ATTRIBUTES
@@ -292,11 +321,11 @@ CLASS PaymentMethod
         PRIVATE status : String
 
     CONSTRUCTOR(amount)
-        SET amount
-        SET status = "Pending"
+        SET this.amount = amount
+        SET this.status = "Pending"
     END CONSTRUCTOR
 
-    METHOD processPayment()
+    ABSTRACT METHOD processPayment()
     END METHOD
 END CLASS
 
@@ -306,9 +335,9 @@ CLASS CreditCardPayment EXTENDS PaymentMethod
         PRIVATE expiryDate : String
 
     CONSTRUCTOR(amount, cardNumber, expiryDate)
-        CALL PaymentMethod(amount)
-        SET cardNumber
-        SET expiryDate
+        CALL SUPER(amount)
+        SET this.cardNumber = cardNumber
+        SET this.expiryDate = expiryDate
     END CONSTRUCTOR
 
     METHOD processPayment()
@@ -320,7 +349,11 @@ CLASS CreditCardPayment EXTENDS PaymentMethod
     END METHOD
 
     METHOD validateCard()
-        RETURN TRUE
+        IF LENGTH(cardNumber) = 16 THEN
+            RETURN TRUE
+        ELSE
+            RETURN FALSE
+        END IF
     END METHOD
 END CLASS
 
@@ -329,8 +362,8 @@ CLASS BankTransferPayment EXTENDS PaymentMethod
         PRIVATE accountNumber : String
 
     CONSTRUCTOR(amount, accountNumber)
-        CALL PaymentMethod(amount)
-        SET accountNumber
+        CALL SUPER(amount)
+        SET this.accountNumber = accountNumber
     END CONSTRUCTOR
 
     METHOD processPayment()
@@ -343,7 +376,11 @@ CLASS BankTransferPayment EXTENDS PaymentMethod
     END METHOD
 
     METHOD validateAccount()
-        RETURN TRUE
+        IF LENGTH(accountNumber) >= 8 THEN
+            RETURN TRUE
+        ELSE
+            RETURN FALSE
+        END IF
     END METHOD
 END CLASS
 
@@ -352,8 +389,8 @@ CLASS WalletPayment EXTENDS PaymentMethod
         PRIVATE walletBalance : Number
 
     CONSTRUCTOR(amount, walletBalance)
-        CALL PaymentMethod(amount)
-        SET walletBalance
+        CALL SUPER(amount)
+        SET this.walletBalance = walletBalance
     END CONSTRUCTOR
 
     METHOD processPayment()
@@ -372,8 +409,8 @@ CLASS Item
         PRIVATE price : Number
 
     CONSTRUCTOR(itemName, price)
-        SET itemName
-        SET price
+        SET this.itemName = itemName
+        SET this.price = price
     END CONSTRUCTOR
 
     METHOD getPrice()
@@ -388,16 +425,16 @@ CLASS Order
         PRIVATE payment : PaymentMethod
 
     CONSTRUCTOR(orderID)
-        SET orderID
+        SET this.orderID = orderID
         CREATE empty items list
     END CONSTRUCTOR
 
-    METHOD addItem(item)
+    METHOD addItem(item : Item)
         ADD item TO items
     END METHOD
 
-    METHOD setPayment(payment)
-        SET payment
+    METHOD setPayment(payment : PaymentMethod)
+        SET this.payment = payment
     END METHOD
 
     METHOD getTotal()
@@ -409,36 +446,42 @@ CLASS Order
     END METHOD
 END CLASS
 
-   END
+END
 STOP
-
 Task 297: Streaming Service Subscriptions
+
 START
-    BEGIN
+BEGIN
+
 CLASS Subscription
     ATTRIBUTES
         PRIVATE startDate : String
         PRIVATE monthlyPrice : Number
 
     CONSTRUCTOR(startDate, monthlyPrice)
-        SET startDate
-        SET monthlyPrice
+        SET this.startDate = startDate
+        SET this.monthlyPrice = monthlyPrice
     END CONSTRUCTOR
 
     METHOD isActive()
-        RETURN TRUE
+        IF CURRENT_DATE >= startDate THEN
+            RETURN TRUE
+        ELSE
+            RETURN FALSE
+        END IF
     END METHOD
 
-    METHOD getStreamingQuality()
+    ABSTRACT METHOD getStreamingQuality()
     END METHOD
 
-    METHOD getDeviceLimit()
+    ABSTRACT METHOD getDeviceLimit()
     END METHOD
 END CLASS
 
 CLASS BasicPlan EXTENDS Subscription
+
     CONSTRUCTOR(startDate, monthlyPrice)
-        CALL Subscription(startDate, monthlyPrice)
+        CALL SUPER(startDate, monthlyPrice)
     END CONSTRUCTOR
 
     METHOD getStreamingQuality()
@@ -451,8 +494,9 @@ CLASS BasicPlan EXTENDS Subscription
 END CLASS
 
 CLASS StandardPlan EXTENDS Subscription
+
     CONSTRUCTOR(startDate, monthlyPrice)
-        CALL Subscription(startDate, monthlyPrice)
+        CALL SUPER(startDate, monthlyPrice)
     END CONSTRUCTOR
 
     METHOD getStreamingQuality()
@@ -469,8 +513,8 @@ CLASS PremiumPlan EXTENDS Subscription
         PRIVATE offlineDownloads : Boolean
 
     CONSTRUCTOR(startDate, monthlyPrice)
-        CALL Subscription(startDate, monthlyPrice)
-        SET offlineDownloads = TRUE
+        CALL SUPER(startDate, monthlyPrice)
+        SET this.offlineDownloads = TRUE
     END CONSTRUCTOR
 
     METHOD getStreamingQuality()
@@ -488,8 +532,8 @@ CLASS WatchRecord
         PRIVATE watchDate : String
 
     CONSTRUCTOR(title, watchDate)
-        SET title
-        SET watchDate
+        SET this.title = title
+        SET this.watchDate = watchDate
     END CONSTRUCTOR
 END CLASS
 
@@ -499,25 +543,37 @@ CLASS UserAccount
         PRIVATE userName : String
         PRIVATE subscription : Subscription
         PRIVATE watchHistory : List<WatchRecord>
+        PRIVATE maxHistory : Number
 
     CONSTRUCTOR(userID, userName, subscription)
-        SET userID
-        SET userName
-        SET subscription
+        SET this.userID = userID
+        SET this.userName = userName
+        SET this.subscription = subscription
+        SET this.maxHistory = 100
         CREATE empty watchHistory list
     END CONSTRUCTOR
 
-    METHOD addWatchRecord(watchRecord)
-        ADD watchRecord TO watchHistory
+    METHOD addWatchRecord(watchRecord : WatchRecord)
+        IF SIZE(watchHistory) < maxHistory THEN
+            ADD watchRecord TO watchHistory
+        ELSE
+            DISPLAY "Watch history is full"
+        END IF
+    END METHOD
+
+    METHOD setSubscription(subscription : Subscription)
+        SET this.subscription = subscription
     END METHOD
 END CLASS
 
-   END
+END
 STOP
 
 Task 298: Delivery Vehicles Fleet
+
 START
-    BEGIN
+BEGIN
+
 CLASS Vehicle
     ATTRIBUTES
         PRIVATE licencePlate : String
@@ -525,13 +581,16 @@ CLASS Vehicle
         PRIVATE engine : Engine
 
     CONSTRUCTOR(licencePlate, fuelLevel, engine)
-        SET licencePlate
-        SET fuelLevel
-        SET engine
+        SET this.licencePlate = licencePlate
+        SET this.fuelLevel = fuelLevel
+        SET this.engine = engine
     END CONSTRUCTOR
 
-    METHOD calculateDeliveryTime(route)
-        RETURN 0
+    ABSTRACT METHOD calculateDeliveryTime(route)
+    END METHOD
+
+    METHOD calculateFuelConsumption(distance)
+        RETURN distance / engine.getFuelEfficiency()
     END METHOD
 END CLASS
 
@@ -540,8 +599,8 @@ CLASS Van EXTENDS Vehicle
         PRIVATE cargoCapacity : Number
 
     CONSTRUCTOR(licencePlate, fuelLevel, engine, cargoCapacity)
-        CALL Vehicle(licencePlate, fuelLevel, engine)
-        SET cargoCapacity
+        CALL SUPER(licencePlate, fuelLevel, engine)
+        SET this.cargoCapacity = cargoCapacity
     END CONSTRUCTOR
 
     METHOD calculateDeliveryTime(route)
@@ -554,12 +613,16 @@ CLASS Motorbike EXTENDS Vehicle
         PRIVATE smallPackagesOnly : Boolean
 
     CONSTRUCTOR(licencePlate, fuelLevel, engine)
-        CALL Vehicle(licencePlate, fuelLevel, engine)
-        SET smallPackagesOnly = TRUE
+        CALL SUPER(licencePlate, fuelLevel, engine)
+        SET this.smallPackagesOnly = TRUE
     END CONSTRUCTOR
 
     METHOD calculateDeliveryTime(route)
         RETURN route.getDistance() / 60
+    END METHOD
+
+    METHOD canCarry(package : Package)
+        RETURN package.getWeight() <= 10
     END METHOD
 END CLASS
 
@@ -568,8 +631,8 @@ CLASS Truck EXTENDS Vehicle
         PRIVATE maxLoad : Number
 
     CONSTRUCTOR(licencePlate, fuelLevel, engine, maxLoad)
-        CALL Vehicle(licencePlate, fuelLevel, engine)
-        SET maxLoad
+        CALL SUPER(licencePlate, fuelLevel, engine)
+        SET this.maxLoad = maxLoad
     END CONSTRUCTOR
 
     METHOD calculateDeliveryTime(route)
@@ -583,19 +646,38 @@ CLASS Engine
         PRIVATE fuelEfficiency : Number
 
     CONSTRUCTOR(horsepower, fuelEfficiency)
-        SET horsepower
-        SET fuelEfficiency
+        SET this.horsepower = horsepower
+        SET this.fuelEfficiency = fuelEfficiency
     END CONSTRUCTOR
+
+    METHOD getFuelEfficiency()
+        RETURN fuelEfficiency
+    END METHOD
+END CLASS
+
+CLASS Package
+    ATTRIBUTES
+        PRIVATE weight : Number
+        PRIVATE dimensions : String
+
+    CONSTRUCTOR(weight, dimensions)
+        SET this.weight = weight
+        SET this.dimensions = dimensions
+    END CONSTRUCTOR
+
+    METHOD getWeight()
+        RETURN weight
+    END METHOD
 END CLASS
 
 CLASS Stop
     ATTRIBUTES
         PRIVATE address : String
-        PRIVATE package : String
+        PRIVATE package : Package
 
     CONSTRUCTOR(address, package)
-        SET address
-        SET package
+        SET this.address = address
+        SET this.package = package
     END CONSTRUCTOR
 END CLASS
 
@@ -605,11 +687,11 @@ CLASS Route
         PRIVATE distance : Number
 
     CONSTRUCTOR(distance)
-        SET distance
+        SET this.distance = distance
         CREATE empty stops list
     END CONSTRUCTOR
 
-    METHOD addStop(stop)
+    METHOD addStop(stop : Stop)
         ADD stop TO stops
     END METHOD
 
@@ -618,12 +700,13 @@ CLASS Route
     END METHOD
 END CLASS
 
-   END
+END
 STOP
-
 Task 299: Bank Cards
+
 START
-    BEGIN
+BEGIN
+
 CLASS Card
     ATTRIBUTES
         PRIVATE cardNumber : String
@@ -632,29 +715,55 @@ CLASS Card
         PRIVATE chip : Chip
 
     CONSTRUCTOR(cardNumber, expiryDate, chip)
-        SET cardNumber
-        SET expiryDate
-        SET status = "Active"
-        SET chip
+        SET this.cardNumber = cardNumber
+        SET this.expiryDate = expiryDate
+        SET this.status = "Active"
+        SET this.chip = chip
     END CONSTRUCTOR
 
-    METHOD authorisePurchase(amount)
-        RETURN FALSE
+    ABSTRACT METHOD authorisePurchase(amount)
+    END METHOD
+
+    METHOD blockCard()
+        SET status = "Blocked"
+    END METHOD
+
+    METHOD unblockCard()
+        SET status = "Active"
+    END METHOD
+END CLASS
+
+CLASS BankAccount
+    ATTRIBUTES
+        PRIVATE accountNumber : String
+        PRIVATE balance : Number
+
+    CONSTRUCTOR(accountNumber, balance)
+        SET this.accountNumber = accountNumber
+        SET this.balance = balance
+    END CONSTRUCTOR
+
+    METHOD getBalance()
+        RETURN balance
+    END METHOD
+
+    METHOD deduct(amount)
+        SET balance = balance - amount
     END METHOD
 END CLASS
 
 CLASS DebitCard EXTENDS Card
     ATTRIBUTES
-        PRIVATE accountBalance : Number
+        PRIVATE account : BankAccount
 
-    CONSTRUCTOR(cardNumber, expiryDate, chip, accountBalance)
-        CALL Card(cardNumber, expiryDate, chip)
-        SET accountBalance
+    CONSTRUCTOR(cardNumber, expiryDate, chip, account)
+        CALL SUPER(cardNumber, expiryDate, chip)
+        SET this.account = account
     END CONSTRUCTOR
 
     METHOD authorisePurchase(amount)
-        IF accountBalance >= amount THEN
-            SET accountBalance = accountBalance - amount
+        IF account.getBalance() >= amount THEN
+            CALL account.deduct(amount)
             RETURN TRUE
         ELSE
             RETURN FALSE
@@ -668,8 +777,8 @@ CLASS CreditCard EXTENDS Card
         PRIVATE unpaidPurchases : List<Number>
 
     CONSTRUCTOR(cardNumber, expiryDate, chip, creditLimit)
-        CALL Card(cardNumber, expiryDate, chip)
-        SET creditLimit
+        CALL SUPER(cardNumber, expiryDate, chip)
+        SET this.creditLimit = creditLimit
         CREATE empty unpaidPurchases list
     END CONSTRUCTOR
 
@@ -689,6 +798,12 @@ CLASS CreditCard EXTENDS Card
         END FOR
         RETURN total
     END METHOD
+
+    METHOD makePayment(amount)
+        IF amount <= getOutstandingBalance() THEN
+            REMOVE amount FROM unpaidPurchases
+        END IF
+    END METHOD
 END CLASS
 
 CLASS Chip
@@ -696,16 +811,19 @@ CLASS Chip
         PRIVATE encryptedSecurityData : String
 
     CONSTRUCTOR(encryptedSecurityData)
-        SET encryptedSecurityData
+        SET this.encryptedSecurityData = encryptedSecurityData
     END CONSTRUCTOR
 END CLASS
 
-   END
+END
 STOP
 
-Task 300: Hospital Staff Scheduling
+
+
+Task 300: Hospital Staff Scheduling 
 START
-    BEGIN
+BEGIN
+
 CLASS StaffMember
     ATTRIBUTES
         PRIVATE employeeID : Number
@@ -713,23 +831,31 @@ CLASS StaffMember
         PRIVATE shifts : List<Shift>
 
     CONSTRUCTOR(employeeID, staffName)
-        SET employeeID
-        SET staffName
+        SET this.employeeID = employeeID
+        SET this.staffName = staffName
         CREATE empty shifts list
     END CONSTRUCTOR
 
-    METHOD assignShift(shift)
-        ADD shift TO shifts
+    METHOD assignShift(shift : Shift)
+        IF hasConflict(shift) THEN
+            DISPLAY "Shift conflict"
+        ELSE
+            ADD shift TO shifts
+        END IF
     END METHOD
 
-    METHOD calculateShiftPay()
-        RETURN 0
+    METHOD hasConflict(shift : Shift)
+        RETURN FALSE
+    END METHOD
+
+    ABSTRACT METHOD calculateShiftPay()
     END METHOD
 END CLASS
 
 CLASS Doctor EXTENDS StaffMember
+
     CONSTRUCTOR(employeeID, staffName)
-        CALL StaffMember(employeeID, staffName)
+        CALL SUPER(employeeID, staffName)
     END CONSTRUCTOR
 
     METHOD approveTreatment()
@@ -746,8 +872,9 @@ CLASS Doctor EXTENDS StaffMember
 END CLASS
 
 CLASS Surgeon EXTENDS Doctor
+
     CONSTRUCTOR(employeeID, staffName)
-        CALL Doctor(employeeID, staffName)
+        CALL SUPER(employeeID, staffName)
     END CONSTRUCTOR
 
     METHOD performOperation()
@@ -760,8 +887,9 @@ CLASS Surgeon EXTENDS Doctor
 END CLASS
 
 CLASS Nurse EXTENDS StaffMember
+
     CONSTRUCTOR(employeeID, staffName)
-        CALL StaffMember(employeeID, staffName)
+        CALL SUPER(employeeID, staffName)
     END CONSTRUCTOR
 
     METHOD administerMedication()
@@ -779,14 +907,16 @@ END CLASS
 
 CLASS Shift
     ATTRIBUTES
+        PRIVATE shiftID : Number
         PRIVATE startTime : String
         PRIVATE endTime : String
         PRIVATE ward : Ward
 
-    CONSTRUCTOR(startTime, endTime, ward)
-        SET startTime
-        SET endTime
-        SET ward
+    CONSTRUCTOR(shiftID, startTime, endTime, ward)
+        SET this.shiftID = shiftID
+        SET this.startTime = startTime
+        SET this.endTime = endTime
+        SET this.ward = ward
     END CONSTRUCTOR
 END CLASS
 
@@ -796,21 +926,21 @@ CLASS Ward
         PRIVATE shifts : List<Shift>
 
     CONSTRUCTOR(wardName)
-        SET wardName
+        SET this.wardName = wardName
         CREATE empty shifts list
     END CONSTRUCTOR
 
-    METHOD addShift(shift)
+    METHOD addShift(shift : Shift)
         ADD shift TO shifts
     END METHOD
 END CLASS
 
-   END
+END
 STOP
 
 Task 301: E-book Reader App
 START
-    BEGIN
+BEGIN
 
 CLASS Publication
     ATTRIBUTES
@@ -820,14 +950,13 @@ CLASS Publication
         PRIVATE coverImage : CoverImage
 
     CONSTRUCTOR(title, author, totalPages, coverImage)
-        SET title
-        SET author
-        SET totalPages
-        SET coverImage
+        SET this.title = title
+        SET this.author = author
+        SET this.totalPages = totalPages
+        SET this.coverImage = coverImage
     END CONSTRUCTOR
 
-    METHOD getProgress()
-        RETURN 0
+    ABSTRACT METHOD getProgress()
     END METHOD
 END CLASS
 
@@ -836,9 +965,13 @@ CLASS Novel EXTENDS Publication
         PRIVATE currentPage : Number
 
     CONSTRUCTOR(title, author, totalPages, coverImage, currentPage)
-        CALL Publication(title, author, totalPages, coverImage)
-        SET currentPage
+        CALL SUPER(title, author, totalPages, coverImage)
+        SET this.currentPage = currentPage
     END CONSTRUCTOR
+
+    METHOD setCurrentPage(currentPage)
+        SET this.currentPage = currentPage
+    END METHOD
 
     METHOD getProgress()
         RETURN (currentPage / totalPages) * 100
@@ -851,10 +984,16 @@ CLASS Magazine EXTENDS Publication
         PRIVATE openedArticles : Number
 
     CONSTRUCTOR(title, author, totalPages, coverImage, totalArticles, openedArticles)
-        CALL Publication(title, author, totalPages, coverImage)
-        SET totalArticles
-        SET openedArticles
+        CALL SUPER(title, author, totalPages, coverImage)
+        SET this.totalArticles = totalArticles
+        SET this.openedArticles = openedArticles
     END CONSTRUCTOR
+
+    METHOD openArticle()
+        IF openedArticles < totalArticles THEN
+            SET openedArticles = openedArticles + 1
+        END IF
+    END METHOD
 
     METHOD getProgress()
         RETURN (openedArticles / totalArticles) * 100
@@ -866,11 +1005,15 @@ CLASS Audiobook EXTENDS Publication
         PRIVATE totalListeningTime : Number
         PRIVATE listenedTime : Number
 
-    CONSTRUCTOR(title, author, totalPages, coverImage, totalListeningTime, listenedTime)
-        CALL Publication(title, author, totalPages, coverImage)
-        SET totalListeningTime
-        SET listenedTime
+    CONSTRUCTOR(title, author, coverImage, totalListeningTime, listenedTime)
+        CALL SUPER(title, author, 0, coverImage)
+        SET this.totalListeningTime = totalListeningTime
+        SET this.listenedTime = listenedTime
     END CONSTRUCTOR
+
+    METHOD setListenedTime(listenedTime)
+        SET this.listenedTime = listenedTime
+    END METHOD
 
     METHOD getProgress()
         RETURN (listenedTime / totalListeningTime) * 100
@@ -883,8 +1026,8 @@ CLASS CoverImage
         PRIVATE dimensions : String
 
     CONSTRUCTOR(filePath, dimensions)
-        SET filePath
-        SET dimensions
+        SET this.filePath = filePath
+        SET this.dimensions = dimensions
     END CONSTRUCTOR
 END CLASS
 
@@ -896,31 +1039,40 @@ CLASS Library
         CREATE empty publications list
     END CONSTRUCTOR
 
-    METHOD addPublication(publication)
+    METHOD addPublication(publication : Publication)
         ADD publication TO publications
     END METHOD
 END CLASS
 
-   END
+END
 STOP
 
-Task 302: Smart Home Devices
+
+Task 302: Smart Home Devices 
 START
-    BEGIN
+BEGIN
+
 CLASS Device
     ATTRIBUTES
         PRIVATE deviceName : String
         PRIVATE roomLocation : String
         PRIVATE status : Boolean
 
-    CONSTRUCTOR(deviceName, roomLocation, status)
-        SET deviceName
-        SET roomLocation
-        SET status
+    CONSTRUCTOR(deviceName, roomLocation)
+        SET this.deviceName = deviceName
+        SET this.roomLocation = roomLocation
+        SET this.status = FALSE
     END CONSTRUCTOR
 
-    METHOD getPowerUsage()
-        RETURN 0
+    METHOD turnOn()
+        SET status = TRUE
+    END METHOD
+
+    METHOD turnOff()
+        SET status = FALSE
+    END METHOD
+
+    ABSTRACT METHOD getPowerUsage()
     END METHOD
 END CLASS
 
@@ -928,9 +1080,9 @@ CLASS SmartLight EXTENDS Device
     ATTRIBUTES
         PRIVATE brightnessLevel : Number
 
-    CONSTRUCTOR(deviceName, roomLocation, status, brightnessLevel)
-        CALL Device(deviceName, roomLocation, status)
-        SET brightnessLevel
+    CONSTRUCTOR(deviceName, roomLocation, brightnessLevel)
+        CALL SUPER(deviceName, roomLocation)
+        SET this.brightnessLevel = brightnessLevel
     END CONSTRUCTOR
 
     METHOD getPowerUsage()
@@ -943,10 +1095,10 @@ CLASS SmartThermostat EXTENDS Device
         PRIVATE targetTemperature : Number
         PRIVATE heatingLevel : Number
 
-    CONSTRUCTOR(deviceName, roomLocation, status, targetTemperature, heatingLevel)
-        CALL Device(deviceName, roomLocation, status)
-        SET targetTemperature
-        SET heatingLevel
+    CONSTRUCTOR(deviceName, roomLocation, targetTemperature, heatingLevel)
+        CALL SUPER(deviceName, roomLocation)
+        SET this.targetTemperature = targetTemperature
+        SET this.heatingLevel = heatingLevel
     END CONSTRUCTOR
 
     METHOD getPowerUsage()
@@ -959,10 +1111,10 @@ CLASS SmartCamera EXTENDS Device
         PRIVATE isRecording : Boolean
         PRIVATE storageUnit : StorageUnit
 
-    CONSTRUCTOR(deviceName, roomLocation, status, isRecording, storageUnit)
-        CALL Device(deviceName, roomLocation, status)
-        SET isRecording
-        SET storageUnit
+    CONSTRUCTOR(deviceName, roomLocation, storageUnit)
+        CALL SUPER(deviceName, roomLocation)
+        SET this.isRecording = FALSE
+        SET this.storageUnit = storageUnit
     END CONSTRUCTOR
 
     METHOD getPowerUsage()
@@ -976,12 +1128,12 @@ CLASS SmartCamera EXTENDS Device
     METHOD startRecording()
         IF storageUnit.hasSpace() THEN
             SET isRecording = TRUE
+            CALL storageUnit.addData(1)
         ELSE
             DISPLAY "Storage Full"
         END IF
     END METHOD
 END CLASS
-
 
 CLASS StorageUnit
     ATTRIBUTES
@@ -989,15 +1141,18 @@ CLASS StorageUnit
         PRIVATE usedSpace : Number
 
     CONSTRUCTOR(capacity)
-        SET capacity
-        SET usedSpace = 0
+        SET this.capacity = capacity
+        SET this.usedSpace = 0
     END CONSTRUCTOR
 
     METHOD hasSpace()
         RETURN usedSpace < capacity
     END METHOD
-END CLASS
 
+    METHOD addData(size)
+        SET usedSpace = usedSpace + size
+    END METHOD
+END CLASS
 
 CLASS Room
     ATTRIBUTES
@@ -1005,14 +1160,14 @@ CLASS Room
         PRIVATE devices : List<Device>
 
     CONSTRUCTOR(roomName)
-        SET roomName
+        SET this.roomName = roomName
         CREATE empty devices list
     END CONSTRUCTOR
 
-    METHOD addDevice(device)
+    METHOD addDevice(device : Device)
         ADD device TO devices
     END METHOD
 END CLASS
 
-   END
+END
 STOP
